@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: pessoas
+#
+#  id              :integer          not null, primary key
+#  cpf             :string
+#  data_nascimento :date
+#  nome            :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+one:
+  nome: MyString
+  cpf: MyString
+  data_nascimento: 2022-09-19
+
+two:
+  nome: MyString
+  cpf: MyString
+  data_nascimento: 2022-09-19

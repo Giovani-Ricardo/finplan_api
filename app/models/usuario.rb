@@ -11,12 +11,21 @@
 #  reset_password_token   :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  categorias_despesa_id  :integer
+#  pessoa_id              :integer          not null
 #
 # Indexes
 #
-#  index_usuarios_on_authentication_token  (authentication_token) UNIQUE
-#  index_usuarios_on_email                 (email) UNIQUE
-#  index_usuarios_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_usuarios_on_authentication_token   (authentication_token) UNIQUE
+#  index_usuarios_on_categorias_despesa_id  (categorias_despesa_id)
+#  index_usuarios_on_email                  (email) UNIQUE
+#  index_usuarios_on_pessoa_id              (pessoa_id)
+#  index_usuarios_on_reset_password_token   (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  categorias_despesa_id  (categorias_despesa_id => categorias_despesas.id)
+#  pessoa_id              (pessoa_id => pessoas.id)
 #
 class Usuario < ApplicationRecord
   acts_as_token_authenticatable
@@ -24,4 +33,8 @@ class Usuario < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  belongs_to :pessoa, class_name: 'Pessoa'
+  has_many :enderecos, class_name: 'Endereco', dependent: :destroy
+  has_many :categorias_despesas, class_name: 'CategoriasDespesa', dependent: :destroy
 end

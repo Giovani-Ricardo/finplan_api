@@ -11,12 +11,21 @@
 #  reset_password_token   :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  categorias_despesa_id  :integer
+#  pessoa_id              :integer          not null
 #
 # Indexes
 #
-#  index_usuarios_on_authentication_token  (authentication_token) UNIQUE
-#  index_usuarios_on_email                 (email) UNIQUE
-#  index_usuarios_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_usuarios_on_authentication_token   (authentication_token) UNIQUE
+#  index_usuarios_on_categorias_despesa_id  (categorias_despesa_id)
+#  index_usuarios_on_email                  (email) UNIQUE
+#  index_usuarios_on_pessoa_id              (pessoa_id)
+#  index_usuarios_on_reset_password_token   (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  categorias_despesa_id  (categorias_despesa_id => categorias_despesas.id)
+#  pessoa_id              (pessoa_id => pessoas.id)
 #
 require "test_helper"
 

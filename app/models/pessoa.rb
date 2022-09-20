@@ -11,4 +11,5 @@
 #
 class Pessoa < ApplicationRecord
     has_one :usuario, class_name: 'Usuario', dependent: :destroy
+    has_one :funcionario, class_name: 'Funcionario', dependent: :destroy
 end

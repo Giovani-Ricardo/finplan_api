@@ -21,4 +21,5 @@
 #
 class CategoriasDespesa < ApplicationRecord
     belongs_to :usuario
+    has_many :depesas, class_name: 'Despesa'
 end

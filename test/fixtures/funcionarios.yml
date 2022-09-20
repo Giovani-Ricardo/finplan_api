@@ -1,0 +1,38 @@
+# == Schema Information
+#
+# Table name: funcionarios
+#
+#  id               :integer          not null, primary key
+#  ativo            :boolean
+#  cargo            :string
+#  data_contratacao :date
+#  data_demissao    :date
+#  salario          :decimal(, )
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  pessoa_id        :integer          not null
+#
+# Indexes
+#
+#  index_funcionarios_on_pessoa_id  (pessoa_id)
+#
+# Foreign Keys
+#
+#  pessoa_id  (pessoa_id => pessoas.id)
+#
+
+one:
+  cargo: MyString
+  salario: 9.99
+  data_contratacao: 2022-09-20
+  data_demissao: 2022-09-20
+  ativo: false
+  pessoa: one
+
+two:
+  cargo: MyString
+  salario: 9.99
+  data_contratacao: 2022-09-20
+  data_demissao: 2022-09-20
+  ativo: false
+  pessoa: two

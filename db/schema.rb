@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_19_155948) do
+ActiveRecord::Schema.define(version: 2022_09_20_153523) do
 
   create_table "categorias_despesas", force: :cascade do |t|
     t.string "nome"
@@ -23,6 +23,20 @@ ActiveRecord::Schema.define(version: 2022_09_19_155948) do
     t.index ["usuario_id"], name: "index_categorias_despesas_on_usuario_id"
   end
 
+  create_table "depesas", force: :cascade do |t|
+    t.decimal "valor"
+    t.boolean "status"
+    t.date "data_vencimento"
+    t.integer "usuario_id", null: false
+    t.integer "categorias_depesas_id"
+    t.boolean "quitado"
+    t.date "data_quitacao"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["categorias_depesas_id"], name: "index_depesas_on_categorias_depesas_id"
+    t.index ["usuario_id"], name: "index_depesas_on_usuario_id"
+  end
+
   create_table "enderecos", force: :cascade do |t|
     t.string "logradouro"
     t.string "cidade"
@@ -32,6 +46,18 @@ ActiveRecord::Schema.define(version: 2022_09_19_155948) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["usuario_id"], name: "index_enderecos_on_usuario_id"
+  end
+
+  create_table "funcionarios", force: :cascade do |t|
+    t.string "cargo"
+    t.decimal "salario"
+    t.date "data_contratacao"
+    t.date "data_demissao"
+    t.boolean "ativo"
+    t.integer "pessoa_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pessoa_id"], name: "index_funcionarios_on_pessoa_id"
   end
 
   create_table "pessoas", force: :cascade do |t|
@@ -61,7 +87,10 @@ ActiveRecord::Schema.define(version: 2022_09_19_155948) do
   end
 
   add_foreign_key "categorias_despesas", "usuarios"
+  add_foreign_key "depesas", "categorias_depesas", column: "categorias_depesas_id"
+  add_foreign_key "depesas", "usuarios"
   add_foreign_key "enderecos", "usuarios"
+  add_foreign_key "funcionarios", "pessoas"
   add_foreign_key "usuarios", "categorias_despesas"
   add_foreign_key "usuarios", "pessoas"
 end

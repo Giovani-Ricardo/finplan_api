@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   devise_for :usuarios
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  resources :funcionarios
-  resources :depesas
-  resources :categorias_depesas
-
+  namespace :api do
+    namespace :v1 do
+      resources :funcionarios
+      resources :despesas
+      resources :categorias_despesa
+    end
+  end
 end

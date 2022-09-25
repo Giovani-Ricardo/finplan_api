@@ -78,9 +78,7 @@ ActiveRecord::Schema.define(version: 2022_09_20_153523) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "authentication_token", limit: 30
     t.integer "pessoa_id", null: false
-    t.integer "categorias_despesa_id"
     t.index ["authentication_token"], name: "index_usuarios_on_authentication_token", unique: true
-    t.index ["categorias_despesa_id"], name: "index_usuarios_on_categorias_despesa_id"
     t.index ["email"], name: "index_usuarios_on_email", unique: true
     t.index ["pessoa_id"], name: "index_usuarios_on_pessoa_id"
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
@@ -91,6 +89,5 @@ ActiveRecord::Schema.define(version: 2022_09_20_153523) do
   add_foreign_key "depesas", "usuarios"
   add_foreign_key "enderecos", "usuarios"
   add_foreign_key "funcionarios", "pessoas"
-  add_foreign_key "usuarios", "categorias_despesas"
   add_foreign_key "usuarios", "pessoas"
 end

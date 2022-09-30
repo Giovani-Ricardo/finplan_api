@@ -32,6 +32,7 @@ class Usuario < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :pessoa, class_name: 'Pessoa'
+  has_one :meta_gasto, class_name: 'MetaGasto'
   has_many :enderecos, class_name: 'Endereco', dependent: :destroy
   has_many :categorias_despesas, class_name: 'CategoriasDespesa', dependent: :destroy
   has_many :depesas, class_name: 'Despesa', dependent: :destroy

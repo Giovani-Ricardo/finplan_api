@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_20_153523) do
+ActiveRecord::Schema.define(version: 2022_09_30_225711) do
 
   create_table "categorias_despesas", force: :cascade do |t|
     t.string "nome"
@@ -60,6 +60,15 @@ ActiveRecord::Schema.define(version: 2022_09_20_153523) do
     t.index ["pessoa_id"], name: "index_funcionarios_on_pessoa_id"
   end
 
+  create_table "meta_gastos", force: :cascade do |t|
+    t.decimal "valor"
+    t.integer "usuario_id", null: false
+    t.datetime "data_expirar"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["usuario_id"], name: "index_meta_gastos_on_usuario_id"
+  end
+
   create_table "pessoas", force: :cascade do |t|
     t.string "nome"
     t.string "cpf"
@@ -89,5 +98,6 @@ ActiveRecord::Schema.define(version: 2022_09_20_153523) do
   add_foreign_key "depesas", "usuarios"
   add_foreign_key "enderecos", "usuarios"
   add_foreign_key "funcionarios", "pessoas"
+  add_foreign_key "meta_gastos", "usuarios"
   add_foreign_key "usuarios", "pessoas"
 end

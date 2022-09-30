@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: meta_gastos
+#
+#  id           :integer          not null, primary key
+#  data_expirar :datetime
+#  valor        :decimal(, )
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  usuario_id   :integer          not null
+#
+# Indexes
+#
+#  index_meta_gastos_on_usuario_id  (usuario_id)
+#
+# Foreign Keys
+#
+#  usuario_id  (usuario_id => usuarios.id)
+#
+
+one:
+  valor: 9.99
+  usuario: one
+  data_expirar: 2022-09-30 19:57:11
+
+two:
+  valor: 9.99
+  usuario: two
+  data_expirar: 2022-09-30 19:57:11

@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_30_225711) do
+ActiveRecord::Schema.define(version: 2022_10_09_205835) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "categorias_despesas", force: :cascade do |t|
     t.string "nome"
@@ -19,22 +22,19 @@ ActiveRecord::Schema.define(version: 2022_09_30_225711) do
     t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "usuario_id", null: false
-    t.index ["usuario_id"], name: "index_categorias_despesas_on_usuario_id"
   end
 
-  create_table "depesas", force: :cascade do |t|
+  create_table "despesas", force: :cascade do |t|
     t.decimal "valor"
-    t.boolean "status"
+    t.boolean "ativo"
     t.date "data_vencimento"
-    t.integer "usuario_id", null: false
-    t.integer "categorias_depesas_id"
+    t.bigint "categorias_despesa_id", null: false
     t.boolean "quitado"
     t.date "data_quitacao"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["categorias_depesas_id"], name: "index_depesas_on_categorias_depesas_id"
-    t.index ["usuario_id"], name: "index_depesas_on_usuario_id"
+    t.string "descricao"
+    t.index ["categorias_despesa_id"], name: "index_despesas_on_categorias_despesa_id"
   end
 
   create_table "enderecos", force: :cascade do |t|
@@ -42,10 +42,8 @@ ActiveRecord::Schema.define(version: 2022_09_30_225711) do
     t.string "cidade"
     t.string "estado"
     t.string "cep"
-    t.integer "usuario_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["usuario_id"], name: "index_enderecos_on_usuario_id"
   end
 
   create_table "funcionarios", force: :cascade do |t|
@@ -54,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_09_30_225711) do
     t.date "data_contratacao"
     t.date "data_demissao"
     t.boolean "ativo"
-    t.integer "pessoa_id", null: false
+    t.bigint "pessoa_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["pessoa_id"], name: "index_funcionarios_on_pessoa_id"
@@ -62,11 +60,9 @@ ActiveRecord::Schema.define(version: 2022_09_30_225711) do
 
   create_table "meta_gastos", force: :cascade do |t|
     t.decimal "valor"
-    t.integer "usuario_id", null: false
     t.datetime "data_expirar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["usuario_id"], name: "index_meta_gastos_on_usuario_id"
   end
 
   create_table "pessoas", force: :cascade do |t|
@@ -77,27 +73,6 @@ ActiveRecord::Schema.define(version: 2022_09_30_225711) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "usuarios", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "authentication_token", limit: 30
-    t.integer "pessoa_id", null: false
-    t.index ["authentication_token"], name: "index_usuarios_on_authentication_token", unique: true
-    t.index ["email"], name: "index_usuarios_on_email", unique: true
-    t.index ["pessoa_id"], name: "index_usuarios_on_pessoa_id"
-    t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
-  end
-
-  add_foreign_key "categorias_despesas", "usuarios"
-  add_foreign_key "depesas", "categorias_depesas", column: "categorias_depesas_id"
-  add_foreign_key "depesas", "usuarios"
-  add_foreign_key "enderecos", "usuarios"
+  add_foreign_key "despesas", "categorias_despesas"
   add_foreign_key "funcionarios", "pessoas"
-  add_foreign_key "meta_gastos", "usuarios"
-  add_foreign_key "usuarios", "pessoas"
 end

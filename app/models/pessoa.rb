@@ -2,7 +2,7 @@
 #
 # Table name: pessoas
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  cpf             :string
 #  data_nascimento :date
 #  nome            :string
@@ -10,6 +10,5 @@
 #  updated_at      :datetime         not null
 #
 class Pessoa < ApplicationRecord
-    has_one :usuario, class_name: 'Usuario', dependent: :destroy
     has_one :funcionario, class_name: 'Funcionario', dependent: :destroy
 end

@@ -2,26 +2,23 @@
 #
 # Table name: depesas
 #
-#  id                    :integer          not null, primary key
-#  data_quitacao         :date
-#  data_vencimento       :date
-#  quitado               :boolean
-#  status                :boolean
-#  valor                 :decimal(, )
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  categorias_depesas_id :integer
-#  usuario_id            :integer          not null
+#  id                     :bigint           not null, primary key
+#  data_quitacao          :date
+#  data_vencimento        :date
+#  quitado                :boolean
+#  status                 :boolean
+#  valor                  :decimal(, )
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  categorias_despesas_id :bigint
 #
 # Indexes
 #
-#  index_depesas_on_categorias_depesas_id  (categorias_depesas_id)
-#  index_depesas_on_usuario_id             (usuario_id)
+#  index_depesas_on_categorias_despesas_id  (categorias_despesas_id)
 #
 # Foreign Keys
 #
-#  categorias_depesas_id  (categorias_depesas_id => categorias_depesas.id)
-#  usuario_id             (usuario_id => usuarios.id)
+#  fk_rails_...  (categorias_despesas_id => categorias_despesas.id)
 #
 require "test_helper"
 

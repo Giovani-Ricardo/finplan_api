@@ -1,0 +1,33 @@
+# == Schema Information
+#
+# Table name: despesas
+#
+#  id                    :bigint           not null, primary key
+#  ativo                 :boolean
+#  data_quitacao         :date
+#  data_vencimento       :date
+#  descricao             :string
+#  quitado               :boolean
+#  valor                 :decimal(, )
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  categorias_despesa_id :bigint           not null
+#
+# Indexes
+#
+#  index_despesas_on_categorias_despesa_id  (categorias_despesa_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (categorias_despesa_id => categorias_despesas.id)
+#
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# column: value
+#
+two: {}
+# column: value

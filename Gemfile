@@ -6,7 +6,7 @@ ruby '3.0.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -47,7 +47,7 @@ gem 'rack-cors'
 gem 'rack-attack'
 
 # Responsável pela parte de autenticação de usuário
-gem 'devise'
+# gem 'devise'
 
 # Permite autenticação de usuário via token
-gem 'simple_token_authentication'
+# gem 'simple_token_authentication'

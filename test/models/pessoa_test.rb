@@ -2,7 +2,7 @@
 #
 # Table name: pessoas
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  cpf             :string
 #  data_nascimento :date
 #  nome            :string

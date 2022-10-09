@@ -2,7 +2,7 @@
 #
 # Table name: funcionarios
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  ativo            :boolean
 #  cargo            :string
 #  data_contratacao :date
@@ -10,7 +10,7 @@
 #  salario          :decimal(, )
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  pessoa_id        :integer          not null
+#  pessoa_id        :bigint           not null
 #
 # Indexes
 #
@@ -18,7 +18,7 @@
 #
 # Foreign Keys
 #
-#  pessoa_id  (pessoa_id => pessoas.id)
+#  fk_rails_...  (pessoa_id => pessoas.id)
 #
 
 one:

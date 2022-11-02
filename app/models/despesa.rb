@@ -22,5 +22,5 @@
 #  fk_rails_...  (categorias_despesa_id => categorias_despesas.id)
 #
 class Despesa < ApplicationRecord
-    belongs_to :categoria, class_name: 'CategoriasDespesa'
+    belongs_to :categorias_despesa, class_name: 'CategoriasDespesa'
 end

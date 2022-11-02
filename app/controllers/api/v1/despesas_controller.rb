@@ -5,8 +5,8 @@ class Api::V1::DespesasController < Api::V1::ApiController
 	# GET /api/v1/despesas
 
 	def index
-		@categorias_despesas = CategoriasDespesa.all
-		render json: @categorias_despesas
+		@despesas = Despesa.all
+		render json: @despesas
 	end
 	
 	# GET /api/v1/despesa/1
@@ -19,7 +19,9 @@ class Api::V1::DespesasController < Api::V1::ApiController
 	
 	def create
 		params.permit!
+		@categoria = CategoriasDespesa.find(params[:categorias_despesa_id])
 		@despesa = Despesa.new(params[:despesa])
+		@despesa.categorias_despesa = @categoria
 		if @despesa.save
 			render json: @despesa, status: :created
 		else
@@ -40,12 +42,12 @@ class Api::V1::DespesasController < Api::V1::ApiController
 	# DELETE /api/v1/categorias_depesas/1
 	
 	def destroy
-		@despesa.destroy
+		render json: @despesa.destroy
 	end
 
 private
 	def set_despesa
-		@categorias_despesa = CategoriasDespesa.find(params[:id])
+		@despesa = Despesa.find(params[:id])
 	end
 
 	def despesa_params

@@ -5,7 +5,7 @@ class Api::V1::DespesasController < Api::V1::ApiController
 	# GET /api/v1/despesas
 
 	def index
-		@despesas = Despesa.all
+		@despesas = current_api_v1_user.despesas
 		render json: @despesas
 	end
 	
@@ -32,7 +32,8 @@ class Api::V1::DespesasController < Api::V1::ApiController
 	# PATCH/PUT /api/v1/despesas/1
 	
 	def update
-		if @despesa.update(despesas_params)
+		params.permit!
+		if @despesa.update(params[:despesa])
 			render json: @categorias_despesa
 		else
 			render json: @categorias_despesa.errors, status: :unprocessable_entity

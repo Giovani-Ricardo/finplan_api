@@ -43,7 +43,7 @@ test:
   encoding: unicode
   database: finplan_test
   pool: 5
-  username: finplan_test
+  username: giovani
   password: 123456
 
 production:
@@ -51,5 +51,5 @@ production:
   encoding: unicode
   database: finplan
   pool: 5
-  username: finplan
+  username: giovani
   password: 123456

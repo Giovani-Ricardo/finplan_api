@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_09_205835) do
+ActiveRecord::Schema.define(version: 2022_11_19_150933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2022_10_09_205835) do
     t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_categorias_despesas_on_user_id"
   end
 
   create_table "despesas", force: :cascade do |t|
@@ -34,7 +36,9 @@ ActiveRecord::Schema.define(version: 2022_10_09_205835) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "descricao"
+    t.bigint "user_id"
     t.index ["categorias_despesa_id"], name: "index_despesas_on_categorias_despesa_id"
+    t.index ["user_id"], name: "index_despesas_on_user_id"
   end
 
   create_table "enderecos", force: :cascade do |t|
@@ -44,6 +48,8 @@ ActiveRecord::Schema.define(version: 2022_10_09_205835) do
     t.string "cep"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_enderecos_on_user_id"
   end
 
   create_table "funcionarios", force: :cascade do |t|
@@ -63,6 +69,8 @@ ActiveRecord::Schema.define(version: 2022_10_09_205835) do
     t.datetime "data_expirar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_meta_gastos_on_user_id"
   end
 
   create_table "pessoas", force: :cascade do |t|
@@ -73,6 +81,42 @@ ActiveRecord::Schema.define(version: 2022_10_09_205835) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.boolean "allow_password_change", default: false
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.string "nome"
+    t.string "email", default: "", null: false
+    t.boolean "ativo"
+    t.json "tokens"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "pessoa_id"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["pessoa_id"], name: "index_users_on_pessoa_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+  end
+
+  add_foreign_key "categorias_despesas", "users"
   add_foreign_key "despesas", "categorias_despesas"
+  add_foreign_key "despesas", "users"
+  add_foreign_key "enderecos", "users"
   add_foreign_key "funcionarios", "pessoas"
+  add_foreign_key "meta_gastos", "users"
+  add_foreign_key "users", "pessoas"
 end

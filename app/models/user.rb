@@ -58,10 +58,18 @@ class User < ActiveRecord::Base
 
   has_many :despesas, class_name: 'Despesa', dependent: :delete_all
   has_many :categorias, class_name: 'CategoriasDespesa', dependent: :delete_all
-  has_many :enderecos, class_name: 'Endereco', dependent: :delete_all
+  has_one :endereco, class_name: 'Endereco', dependent: :destroy
   has_one :meta, class_name: 'MetaGasto', dependent: :destroy
 
+  accepts_nested_attributes_for :endereco, allow_destroy: true
+
+  def with_endereco
+    build_endereco if endereco.nil?
+    self
+  end
+
   private
+
 
   def set_uid
     self[:uid] = self[:email] if self[:uid].blank? && self[:email].present?

@@ -1,12 +1,11 @@
 class Api::V1::CategoriasDespesaController < Api::V1::ApiController
   	before_action :set_categoria_despesa, only: [:show, :update, :destroy]
-	before_action :require_authorization!, only: [:show, :update, :destroy]
+	before_action :authenticate_api_v1_user!
 
 	# GET /api/v1/categorias_despesa
 
 	def index
-		@categorias_despesas = CategoriasDespesa.all
-		render json: @categorias_despesas
+		render json: categorias
 	end
 	
 	# GET /api/v1/categorias_despesa/1
@@ -19,7 +18,9 @@ class Api::V1::CategoriasDespesaController < Api::V1::ApiController
 	
 	def create
 		params.permit!
+		params[:categorias_despesa][:user_id] = current_api_v1_user.id
 		@categorias_despesa = CategoriasDespesa.new(params[:categorias_despesa])
+		puts @categorias_depesas
 		if @categorias_despesa.save
 			render json: @categorias_despesa, status: :created
 		else
@@ -46,8 +47,12 @@ class Api::V1::CategoriasDespesaController < Api::V1::ApiController
 	end
 
 private
+	def categorias
+		current_api_v1_user.categorias
+	end
+
 	def set_categoria_despesa
-		@categorias_despesa = CategoriasDespesa.find(params[:id])
+		@categorias_despesa = categorias.find(params[:id])
 	end
 
 	def categorias_despesa_params

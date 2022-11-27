@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_27_192644) do
+ActiveRecord::Schema.define(version: 2022_11_27_211851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2022_11_27_192644) do
     t.string "nome"
     t.string "descricao"
     t.decimal "percentual"
-    t.boolean "status"
+    t.boolean "ativo", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"

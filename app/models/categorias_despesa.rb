@@ -3,10 +3,10 @@
 # Table name: categorias_despesas
 #
 #  id         :bigint           not null, primary key
+#  ativo      :boolean          default(TRUE)
 #  descricao  :string
 #  nome       :string
 #  percentual :decimal(, )
-#  status     :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint
@@ -22,4 +22,9 @@
 class CategoriasDespesa < ApplicationRecord
     has_many :despesas, class_name: 'Despesa'
     belongs_to :user
+
+    validates :descricao, presence: true
+    validates :nome, presence: true
+    validates :percentual, presence: true
+
 end

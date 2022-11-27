@@ -20,7 +20,6 @@ class Api::V1::CategoriasDespesaController < Api::V1::ApiController
 		params.permit!
 		params[:categorias_despesa][:user_id] = 2 #current_api_v1_user.id
 		@categorias_despesa = CategoriasDespesa.new(params[:categorias_despesa])
-		puts @categorias_depesas
 		if @categorias_despesa.save
 			render json: @categorias_despesa, status: :created
 		else
@@ -31,7 +30,6 @@ class Api::V1::CategoriasDespesaController < Api::V1::ApiController
 	# PATCH/PUT /api/v1/categorias_despesa/1
 	
 	def update
-		puts "Entrou"
 		params.permit!
 		if @categorias_despesa.update(params[:categorias_despesa])
 			render json: @categorias_despesa

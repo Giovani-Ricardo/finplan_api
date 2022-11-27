@@ -1,11 +1,12 @@
 class Api::V1::DespesasController < Api::V1::ApiController
 	before_action :set_despesa, only: [:show, :update, :destroy]
-	before_action :authenticate_api_v1_user!
+	# before_action :authenticate_api_v1_user!
 
 	# GET /api/v1/despesas
 
 	def index
-		render json: despesas
+		@despesas = despesas
+		render json: @despesas
 	end
 	
 	# GET /api/v1/despesa/1
@@ -17,14 +18,15 @@ class Api::V1::DespesasController < Api::V1::ApiController
 	# POST /api/v1/despesa
 	
 	def create
+		puts params
 		params.permit!
-		params[:categorias_despesa_id][:user_id] = current_api_v1_user.id
+		usuario = User.find(2) #current_api_v1_user.id
 		
-		@categoria = CategoriasDespesa.find(params[:categorias_despesa_id])
+		#@categoria = CategoriasDespesa.find(params[:despesa][:categorias_despesa_id])
 		@despesa = Despesa.new(params[:despesa])
-		@despesa.categorias_despesa = @categoria
+		@despesa.user = usuario
 
-		if @despesa.save
+		if @despesa.save!
 			render json: @despesa, status: :created
 		else
 			render json: @despesa.errors, status: :unprocessable_entity
@@ -48,18 +50,32 @@ class Api::V1::DespesasController < Api::V1::ApiController
 		render json: @despesa.destroy
 	end
 
+	def filtrar 
+		puts params
+		if params[:categorias_despesa_id].present? && params[:categorias_despesa_id] != "Selecione a categoria"
+			puts "Entrou"
+			@despesas = Despesa.where(categorias_despesa_id: params[:categorias_despesa_id])
+			puts(params[:categorias_despesa_id])
+			if params[:data_fim].present? && params[:data_inicio].present?
+				puts "entrou"
+				@despesas = @despesas.where("data_vencimento between ? and ?", params[:data_inicio], params[:data_fim] )
+			end
+		elsif params[:data_fim].present? && params[:data_inicio].present?
+			@despesas = Despesa.where("data_vencimento between ? and ?", params[:data_inicio], params[:data_fim])
+		else
+			@despesas = Despesa.all
+		end
+		render json: @despesas
+	end
+
 private
 
 	def despesas
-		current_api_v1_user.despesas
+		Despesa.all #current_api_v1_user.despesas
 	end
 
 	def set_despesa
 		@despesa = despesas.find(params[:id])
-	end
-
-	def despesa_params
-		params.require(:despesa).permit(:nome, :descricao, :percentual, :status)
 	end
 	
 end

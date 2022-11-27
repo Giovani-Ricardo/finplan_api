@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_19_150933) do
+ActiveRecord::Schema.define(version: 2022_11_27_192644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,12 +31,13 @@ ActiveRecord::Schema.define(version: 2022_11_19_150933) do
     t.boolean "ativo"
     t.date "data_vencimento"
     t.bigint "categorias_despesa_id", null: false
-    t.boolean "quitado"
+    t.boolean "quitado", default: false
     t.date "data_quitacao"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "descricao"
     t.bigint "user_id"
+    t.boolean "alertar_vencimento", default: false
     t.index ["categorias_despesa_id"], name: "index_despesas_on_categorias_despesa_id"
     t.index ["user_id"], name: "index_despesas_on_user_id"
   end

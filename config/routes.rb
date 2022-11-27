@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :funcionarios
       resources :despesas
       resources :categorias_despesa
+      get :filtrar_despesa, to: 'despesas#filtrar'
     end
   end
 end

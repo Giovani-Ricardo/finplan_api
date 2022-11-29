@@ -46,7 +46,7 @@ class Api::V1::CategoriasDespesaController < Api::V1::ApiController
 
 private
 	def categorias
-		CategoriasDespesa.all #current_api_v1_user.categorias
+		CategoriasDespesa.all.order('nome') #current_api_v1_user.categorias
 	end
 
 	def set_categoria_despesa

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :despesas
       resources :categorias_despesa
       get :filtrar_despesa, to: 'despesas#filtrar'
+      get :top_5_despesas, to: 'despesas#top_5_despesas'
       resources :meta_gastos, only: [:index, :create]
       post :atualizar_meta, to: 'meta_gastos#atualizar_meta'
     end

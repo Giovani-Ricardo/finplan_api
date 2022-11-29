@@ -65,13 +65,18 @@ class Api::V1::DespesasController < Api::V1::ApiController
 		else
 			@despesas = Despesa.all
 		end
-		render json: @despesas
+		render json: @despesas.order('data_vencimento')
+	end
+
+	def top_5_despesas
+		@despesas = Despesa.all.order('valor desc') #current_api_v1_user.despesas
+		render json: @despesas[0..4]
 	end
 
 private
 
 	def despesas
-		Despesa.all #current_api_v1_user.despesas
+		Despesa.all.order('data_vencimento') #current_api_v1_user.despesas
 	end
 
 	def set_despesa

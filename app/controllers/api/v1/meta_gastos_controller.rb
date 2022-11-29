@@ -1,13 +1,15 @@
 class Api::V1::MetaGastosController < Api::V1::ApiController
+    before_action :authenticate_api_v1_user!
+
     def index
-        @meta = MetaGasto.last #current_api_v1_user.meta
+        @meta = current_api_v1_user.meta
         render json: @meta
     end
 
     def create
         params.permit!
         @meta = MetaGasto.new(params[:meta_gasto])
-        @meta.user_id = 2#current_api_v1_user.id
+        @meta.user_id = current_api_v1_user.id
         if @meta.save
 			render json: @meta, status: :created
 		else
@@ -17,7 +19,7 @@ class Api::V1::MetaGastosController < Api::V1::ApiController
 
     def atualizar_meta
         params.permit!
-        @meta = MetaGasto.last #current_api_v1_user.meta
+        @meta = current_api_v1_user.meta
         unless @meta
             self.create
         else

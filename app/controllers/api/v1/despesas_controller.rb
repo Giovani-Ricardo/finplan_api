@@ -1,6 +1,6 @@
 class Api::V1::DespesasController < Api::V1::ApiController
 	before_action :set_despesa, only: [:show, :update, :destroy]
-	# before_action :authenticate_api_v1_user!
+	before_action :authenticate_api_v1_user!
 
 	# GET /api/v1/despesas
 
@@ -20,9 +20,9 @@ class Api::V1::DespesasController < Api::V1::ApiController
 	def create
 		puts params
 		params.permit!
-		usuario = User.find(2) #current_api_v1_user.id
+		usuario = current_api_v1_user.id
 		
-		#@categoria = CategoriasDespesa.find(params[:despesa][:categorias_despesa_id])
+		@categoria = CategoriasDespesa.find(params[:despesa][:categorias_despesa_id])
 		@despesa = Despesa.new(params[:despesa])
 		@despesa.user = usuario
 
@@ -69,14 +69,14 @@ class Api::V1::DespesasController < Api::V1::ApiController
 	end
 
 	def top_5_despesas
-		@despesas = Despesa.all.order('valor desc') #current_api_v1_user.despesas
+		@despesas = current_api_v1_user.despesas.order('valor desc')
 		render json: @despesas[0..4]
 	end
 
 private
 
 	def despesas
-		Despesa.all.order('data_vencimento') #current_api_v1_user.despesas
+		current_api_v1_user.despesas #Despesa.all.order('data_vencimento') 
 	end
 
 	def set_despesa

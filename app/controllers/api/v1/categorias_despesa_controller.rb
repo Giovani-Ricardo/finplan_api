@@ -1,6 +1,6 @@
 class Api::V1::CategoriasDespesaController < Api::V1::ApiController
   	before_action :set_categoria_despesa, only: [:show, :update, :destroy]
-	#before_action :authenticate_api_v1_user!
+	before_action :authenticate_api_v1_user!
 
 	# GET /api/v1/categorias_despesa
 
@@ -18,7 +18,7 @@ class Api::V1::CategoriasDespesaController < Api::V1::ApiController
 	
 	def create
 		params.permit!
-		params[:categorias_despesa][:user_id] = 2 #current_api_v1_user.id
+		params[:categorias_despesa][:user_id] = current_api_v1_user.id
 		@categorias_despesa = CategoriasDespesa.new(params[:categorias_despesa])
 		if @categorias_despesa.save
 			render json: @categorias_despesa, status: :created
@@ -46,7 +46,7 @@ class Api::V1::CategoriasDespesaController < Api::V1::ApiController
 
 private
 	def categorias
-		CategoriasDespesa.all.order('nome') #current_api_v1_user.categorias
+		current_api_v1_user.categorias.order('nome')
 	end
 
 	def set_categoria_despesa
